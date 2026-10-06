@@ -1,27 +1,27 @@
-# raylib CMake Project
+# Dando la Nota (raylib-boat)
 
-This provides a base project template which builds with [CMake](https://cmake.org).
+Rhythm game jam project: command a Viking longship's crew by playing in time with the music.
+C++17 + [raylib](https://www.raylib.com) 6.0 (fetched by CMake). See `docs/ARCHITECTURE.md` for the
+code map and `docs/DESIGN.md` for the game design.
 
-## Usage
-
-To compile the example, use one of the following dependending on your build target...
-
-### Desktop
-
-Use the following to build for desktop:
-
-``` bash
+## Build & run (desktop)
+```bash
 cmake -B build
-cmake --build build
+cmake --build build --config Debug
+build/Debug/RAYLIB-BOAT.exe        # single-config generators: build/RAYLIB-BOAT
 ```
 
-### Web
-
-Compiling for the web requires the [Emscripten SDK](https://emscripten.org/docs/getting_started/downloads.html):
-
-``` bash
-mkdir build
-cd build
-emcmake cmake .. -DPLATFORM=Web -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXECUTABLE_SUFFIX=".html"
-emmake make
+## Test
+```bash
+cd build && ctest -C Debug --output-on-failure
+build/Debug/RAYLIB-BOAT.exe --frames 120 --screenshot out.png --weather 0   # smoke run
 ```
+
+## Web (optional)
+Requires the [Emscripten SDK](https://emscripten.org/docs/getting_started/downloads.html):
+```bash
+emcmake cmake -B build-web -DCMAKE_BUILD_TYPE=Release
+cmake --build build-web
+emrun build-web/RAYLIB-BOAT.html
+```
+Targets WebGL2; not verified yet. See "Web build" in `docs/ARCHITECTURE.md`.
